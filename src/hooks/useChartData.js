@@ -16,9 +16,15 @@ export function useChartData(selectedCoin, open) {
       setLoading(true);
       setError(null);
       try {
+        // Use internal API route instead of direct CoinGecko API
         const response = await axios.get(
-          `https://api.coingecko.com/api/v3/coins/${coinId}/market_chart?vs_currency=${currency}&days=7`,
-          { timeout: 10000 }
+          `/api/chart?coinId=${coinId}&currency=${currency}&days=7`,
+          {
+            timeout: 15000,
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
         );
 
         const prices = response.data.prices || [];
@@ -43,7 +49,13 @@ export function useChartData(selectedCoin, open) {
           ],
         });
       } catch (err) {
-        setError("Failed to fetch chart data.");
+        if (err.response?.data?.error) {
+          setError(err.response.data.error);
+        } else if (err.code === "ECONNABORTED") {
+          setError("Request timeout. Please try again.");
+        } else {
+          setError("Failed to fetch chart data.");
+        }
         console.error("Error fetching chart data:", err);
         setChartData({ labels: [], datasets: [] });
       } finally {

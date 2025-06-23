@@ -28,13 +28,22 @@ export function useCoinData() {
       setLoading(true);
       setError(null);
       try {
-        const response = await axios.get(
-          `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${curr}&order=market_cap_desc&per_page=100&page=1&sparkline=false`,
-          { timeout: 10000 }
-        );
+        // Use internal API route instead of direct CoinGecko API
+        const response = await axios.get(`/api/coins?currency=${curr}`, {
+          timeout: 15000,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
         setCoins(response.data);
       } catch (err) {
-        setError("Failed to fetch data. Please try again.");
+        if (err.response?.data?.error) {
+          setError(err.response.data.error);
+        } else if (err.code === "ECONNABORTED") {
+          setError("Request timeout. Please try again.");
+        } else {
+          setError("Failed to fetch data. Please try again.");
+        }
         console.error("Error fetching coins:", err);
       } finally {
         setLoading(false);
@@ -46,7 +55,7 @@ export function useCoinData() {
   // Initial fetch and auto-refresh
   useEffect(() => {
     fetchCoins();
-    const interval = setInterval(() => fetchCoins(), 300000);
+    const interval = setInterval(() => fetchCoins(), 300000); // 5 minutes
     return () => clearInterval(interval);
   }, [fetchCoins]);
 
