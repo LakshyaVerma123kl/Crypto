@@ -1,18 +1,28 @@
-## 💼 Portfolio Website
+## 📊 Crypto Dashboard
 
-This is my personal portfolio website built to showcase my skills, projects, and experience as a full-stack web developer.
+A modern cryptocurrency dashboard built with **Next.js** to track real-time market data, price trends, and visualize historical data using the CoinGecko API and Chart.js.
 
 ### 🔧 Tech Stack
-- **Frontend**: React.js, Next.js, Tailwind CSS
-- **Backend**: (if applicable) Node.js
-- **Other Tools**: TypeScript, Git, Vercel (for deployment)
+- **Framework**: Next.js (App Router)
+- **Styling**: Tailwind CSS
+- **Data Provider**: CoinGecko API
+- **Charts**: Chart.js, react-chartjs-2
+- **State Management**: React Hooks
 
 ### ✨ Features
-- Responsive design with clean UI/UX
-- Detailed sections: About Me, Skills, Projects, Contact
-- SEO optimized with metadata and OpenGraph support
-- Deployed and live on Vercel
+- 🔍 Real-time crypto prices with 24h updates
+- 📈 Interactive historical price charts (1D, 7D, 1M, etc.)
+- 📊 Market stats: market cap, volume, supply
+- 🌙 Dark mode toggle for better UX
+- ⚡ Optimized performance with SSR and ISR
+- 📱 Mobile-responsive UI
 
 ### 📌 Purpose
-To create a central hub for all my professional work — making it easy for potential employers, collaborators, and clients to explore my background, view my work, and get in touch.
+This project was created to demonstrate API integration, data visualization, and dashboard UI using modern web technologies. Ideal for both learning and crypto market monitoring.
+
+### 🚀 Future Improvements
+- Add user watchlist and favorites
+- Integrate authentication (e.g., Firebase or Supabase)
+- Advanced filtering and sorting
+- Multiple currency support
 
